@@ -24,6 +24,8 @@ class Game:
             self.character.down()
         elif pyxel.btnp(pyxel.KEY_A):
             self.character.left()
+        elif pyxel.btnp(pyxel.KEY_R) and self.character.lost:
+            self.character = Character()
         
         if self.fruit.x == self.character.x and self.fruit.y == self.character.y:
             self.fruit = Fruit()
@@ -34,7 +36,7 @@ class Game:
         if not self.character.lost:
             pyxel.cls(0)
             pyxel.rect(40,40,80,80,1)
-            pyxel.text(115,33, str(self.character.score), 7)
+            pyxel.text(80,33, str(self.character.score), 7)
             self.fruit.draw()
             self.character.draw()
         else:
