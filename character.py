@@ -32,8 +32,8 @@ class Character:
             self.tail[i] = self.tail[i-1]
 
     def check_collision(self):
-        for i in range(1, len(self.tail)):
-            if self.tail[i].x == self.x and self.tail[i].y == self.y:
+        for el in self.tail[1:]:
+            if el.x == self.x and el.y == self.y:
                 self.lost = True
 
     def update(self):
