@@ -3,6 +3,7 @@ import random
 from time import time
 from fruit import Fruit
 from character import Character
+from direction import Direction
 
 random.seed(time())
 
@@ -16,13 +17,13 @@ class Game:
         pyxel.run(self.update, self.draw)
 
     def update(self):
-        if pyxel.btnp(pyxel.KEY_W):
+        if pyxel.btnp(pyxel.KEY_W) and not self.character.direction == Direction.DOWN:
             self.character.up()
-        elif pyxel.btnp(pyxel.KEY_D):
+        elif pyxel.btnp(pyxel.KEY_D) and not self.character.direction == Direction.LEFT:
             self.character.right()
-        elif pyxel.btnp(pyxel.KEY_S):
+        elif pyxel.btnp(pyxel.KEY_S) and not self.character.direction == Direction.UP:
             self.character.down()
-        elif pyxel.btnp(pyxel.KEY_A):
+        elif pyxel.btnp(pyxel.KEY_A) and not self.character.direction == Direction.RIGHT:
             self.character.left()
         elif pyxel.btnp(pyxel.KEY_R) and self.character.lost:
             self.character = Character()

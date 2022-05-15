@@ -25,7 +25,7 @@ class Character:
 
     def grow(self):
         self.score += 1
-        self.tail.append(Tail(self.x, self.y))
+        self.tail.append(Tail(0, 0))
 
     def update_tail(self):
         for i in range(len(self.tail)-1, 0, -1):
@@ -39,6 +39,10 @@ class Character:
     def update(self):
         self.tail[0] = Tail(self.x, self.y)
 
+        if self.x > 115 or self.x < 40 or self.y > 115 or self.y < 40:
+            self.lost = True
+            return
+
         match self.direction:
             case Direction.UP:
                 self.y  = max(self.y - 5, 0)
@@ -50,22 +54,12 @@ class Character:
                 self.x = max(self.x - 5, 0)
             case _:
                 self.x = self.x
-
-        if self.x > 115:
-            self.x = 40
-        elif self.x < 40:
-            self.x = 115
-
-        if self.y > 115:
-            self.y = 40
-        elif self.y < 40:
-            self.y = 115
         
         self.update_tail()
         self.check_collision()
 
     def draw(self):
         self.update()
-        for i in range(1, len(self.tail)):
-            pyxel.rect(self.tail[i].x,self.tail[i].y,5,5,8)
+        for el in self.tail[1:]:
+            pyxel.rect(el.x,el.y,5,5,8)
         pyxel.rect(self.x,self.y,5,5,8)
